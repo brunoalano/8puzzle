@@ -21,6 +21,9 @@ typedef struct State {
 
   /* Coordinate of Empty Space */
   Coordinate empty_space;
+
+  /* Parent State */
+  struct State *parent;
 } State;
 
 /**

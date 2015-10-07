@@ -65,7 +65,7 @@ void enqueue(Queue *q, Node *n);
  * @param  q Queue
  * @return   Node of the top
  */
-Node *dequeue(Queue *q);
+void *dequeue(Queue *q);
 
 /**
  * Check if Queue it's Empty

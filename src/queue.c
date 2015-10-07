@@ -51,7 +51,7 @@ void enqueue(Queue *q, Node *n)
   n->next = NULL;
 }
 
-Node *dequeue(Queue *q)
+void *dequeue(Queue *q)
 {
   /* Check if Queue exists */
   if (q == NULL) { printf("Queue não existe\n"); exit(0); }
@@ -60,16 +60,20 @@ Node *dequeue(Queue *q)
   if (q->head == NULL) { printf("Queue vazia\n"); exit(0); }
 
   /* Create Temporary Node */
-  Node *temp = q->head;
+  Node *temp_node = q->head;
+  void *temp_state = temp_node->data;
 
   /* Go to next element of Queue */
   q->head = q->head->next;
+
+  /* Free the node */
+  free(temp_node);
 
   /* Decrement size of Queue */
   q->size--;
 
   /* Return temporary Node */
-  return temp;
+  return temp_state;
 }
 
 bool is_queue_empty(Queue *q)

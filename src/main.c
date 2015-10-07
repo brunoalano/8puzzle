@@ -59,35 +59,34 @@ int main(void)
   while (!is_queue_empty(q))
   {
     /* Get current node */
-    Node *node = dequeue(q);
+    State *state = (State *)dequeue(q);
 
     /* Check if it's correct */
-    if (is_finished(node->data))
+    if (is_finished(state))
     {
-      Node *parent = node->prev;
+      State *parent = state->parent;
       while (parent)
       {
         printf("1\n");
-        parent = parent->prev;
+        parent = parent->parent;
       }
       return 0;
     }
 
     /* Generate possible moves */
     Coordinate *sucessors = malloc(4 * sizeof(Coordinate));
-    int amount_of_sucessors = generate_state_sucessors(node->data, sucessors);
+    int amount_of_sucessors = generate_state_sucessors(state, sucessors);
     
     /* For each new possibility of empty space coordinate */
     for (int i = 0; i < amount_of_sucessors; i++)
     {
       /* Create the new state */
-      State *new_state = swap_state((State *)node->data, sucessors[i]);
+      State *new_state = swap_state(state, sucessors[i]);
+      new_state->parent = state;
       
       /* Add it to queue */
       Node *new_node = malloc(sizeof(Node));
       new_node->data = new_state;
-      node->next = new_node;
-      new_node->prev = node;
       enqueue(q, new_node);
     }
   }

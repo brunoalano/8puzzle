@@ -18,4 +18,4 @@ SOURCE = src/main.c src/game.c src/queue.c src/state.c
 all: compile
 
 compile: ${SOURCE}
-	${CC} -o 8puzzle ${SOURCE} ${CFLAGS} ${LDFLAGS}
+	${CC} -o 8puzzle ${SOURCE} ${CFLAGS} ${LDFLAGS} -g
