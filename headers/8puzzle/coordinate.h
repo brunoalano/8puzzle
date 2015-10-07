@@ -6,6 +6,8 @@
  * space in our State every time
  */
 
+#include <8puzzle/action.h>
+
 #ifndef _COORDINATE_H_INCLUDED
 #define _COORDINATE_H_INCLUDED
 

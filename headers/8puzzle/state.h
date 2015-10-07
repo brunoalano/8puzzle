@@ -50,7 +50,7 @@ void print_state(State *s);
  * @param  possible_coordinates Where to store the possible Coordinates
  * @return                      Amount of possible coordinates
  */
-int generate_state_sucessors(State *s, Coordinate *possible_coordinates);
+int generate_state_sucessors(State *s, Coordinate *possible_coordinates, Action *actions);
 
 /**
  * Swap the Current Position to Coordinate

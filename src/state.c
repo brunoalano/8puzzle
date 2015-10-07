@@ -11,6 +11,7 @@
 
 /* Game State */
 #include <8puzzle/state.h>
+#include <8puzzle/action.h>
 
 void print_state(State *s)
 {
@@ -22,10 +23,10 @@ void print_state(State *s)
   }
 }
 
-int generate_state_sucessors(State *s, Coordinate *possible_coordinates)
+int generate_state_sucessors(State *s, Coordinate *possible_coordinates, Action *actions)
 {
   /* Relative places to move */
-  int deltas[4][2] = { {-1, 0}, {0, -1}, {0, 1}, {1, 0} };
+  int deltas[4][3] = { {-1, 0, DOWN}, {0, -1, LEFT}, {0, 1, RIGHT}, {1, 0, UP} };
 
   /* Amount of Coordinates that are valid */
   int count = 0;
@@ -36,11 +37,20 @@ int generate_state_sucessors(State *s, Coordinate *possible_coordinates)
     int *row = deltas[i];
     int nrow = s->empty_space.line + row[0];
     int ncol = s->empty_space.column + row[1];
+
     if (nrow >= 0 && nrow < 3 && ncol >= 0 && ncol < 3)
     {
-      possible_coordinates[count].line = nrow;
-      possible_coordinates[count].column = ncol;
-      count++;
+      /* Check for opposites */
+      if ((s->action == LEFT && row[2] == RIGHT) || (s->action == RIGHT && row[2] == LEFT) || (s->action == UP && row[2] == DOWN) || (s->action == DOWN && row[2] == UP)) 
+      {
+        continue; /* Skip */
+      }
+      else {
+        possible_coordinates[count].line = nrow;
+        possible_coordinates[count].column = ncol;
+        actions[count] = row[2];
+        count++;
+      }
     }
   }
 

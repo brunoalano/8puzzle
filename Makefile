@@ -12,7 +12,7 @@ CFLAGS = -Wall -pedantic --std=c99
 LDFLAGS = -Iheaders
 
 # Source Files
-SOURCE = src/main.c src/game.c src/queue.c src/state.c
+SOURCE = src/main.c src/game.c src/queue.c src/state.c src/stack.c
 
 # Build
 all: compile

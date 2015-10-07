@@ -12,9 +12,6 @@ typedef struct Node {
   /* Next Node */
   struct Node *next;
 
-  /* Previous node */
-  struct Node *prev;
-
   /* Content */
   void *data;
 } Node;

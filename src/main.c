@@ -10,9 +10,11 @@
 /* Standard Libraries */
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /* Game */
 #include <8puzzle/queue.h>
+#include <8puzzle/stack.h>
 #include <8puzzle/node.h>
 #include <8puzzle/state.h>
 #include <8puzzle/action.h>
@@ -64,18 +66,26 @@ int main(void)
     /* Check if it's correct */
     if (is_finished(state))
     {
+      /* Display List */
+      Stack *list_of_states = malloc(sizeof(Stack));
+
+      /* Get the parent */
       State *parent = state->parent;
+      push(list_of_states, parent);
       while (parent)
       {
-        printf("1\n");
         parent = parent->parent;
+        push(list_of_states, parent);
       }
+
+      
       return 0;
     }
 
     /* Generate possible moves */
     Coordinate *sucessors = malloc(4 * sizeof(Coordinate));
-    int amount_of_sucessors = generate_state_sucessors(state, sucessors);
+    Action *actions = malloc(4 * sizeof(Action));
+    int amount_of_sucessors = generate_state_sucessors(state, sucessors, actions);
     
     /* For each new possibility of empty space coordinate */
     for (int i = 0; i < amount_of_sucessors; i++)
@@ -83,6 +93,7 @@ int main(void)
       /* Create the new state */
       State *new_state = swap_state(state, sucessors[i]);
       new_state->parent = state;
+      new_state->action = actions[i];
       
       /* Add it to queue */
       Node *new_node = malloc(sizeof(Node));

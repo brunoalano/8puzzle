@@ -18,7 +18,6 @@ Queue *create_queue()
   Queue *q = malloc(sizeof(Queue));
   if (!q) { return NULL; }
   q->head = NULL;
-  q->tail = NULL;
   q->size = 0;
 
   return q;
@@ -35,11 +34,7 @@ void enqueue(Queue *q, Node *n)
     /* Add it to Queue */
     q->head = n;
     q->tail = n;
-
-    /* Setup the node */
-    n->prev = NULL;
   } else {
-    n->prev = q->tail;
     q->tail->next = n;
     q->tail = n;
   }
