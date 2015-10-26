@@ -66,18 +66,20 @@ int main(void)
     /* Check if it's correct */
     if (is_finished(state))
     {
-      /* Display List */
-      Stack *list_of_states = malloc(sizeof(Stack));
+      /* Counter */
+      int counter = 1;
 
       /* Get the parent */
       State *parent = state->parent;
-      push(list_of_states, parent);
       while (parent)
       {
         parent = parent->parent;
-        push(list_of_states, parent);
+        counter++;
       }
+      counter++;
 
+      /* Output the number of plays */
+      printf("%d\n", counter);
       
       return 0;
     }
